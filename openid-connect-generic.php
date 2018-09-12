@@ -151,6 +151,9 @@ class OpenID_Connect_Generic {
 		}
 	}
 	
+	function authentication_redirect(){
+		wp_redirect( $this->client_wrapper->get_authentication_url() );
+	}
 	/**
 	 * Simple autoloader
 	 * 
@@ -231,6 +234,10 @@ class OpenID_Connect_Generic {
 		add_filter( 'the_content_feed', array( $plugin, 'enforce_privacy_feeds' ), 999 );
 		add_filter( 'the_excerpt_rss',  array( $plugin, 'enforce_privacy_feeds' ), 999 );
 		add_filter( 'comment_text_rss', array( $plugin, 'enforce_privacy_feeds' ), 999 );
+
+		// autho redirect
+		add_action( 'admin_post_openid-connect-redirect', array( $plugin, 'authentication_redirect' ) );
+		add_action( 'admin_post_nopriv_openid-connect-redirect', array( $plugin, 'authentication_redirect' ) );
 	}
 }
 
