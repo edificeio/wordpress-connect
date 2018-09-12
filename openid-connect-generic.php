@@ -151,7 +151,7 @@ class OpenID_Connect_Generic {
 		}
 	}
 	
-	function authentication_redirect(){
+	function authentication_redirect(){ 
 		wp_redirect( $this->client_wrapper->get_authentication_url() );
 	}
 	/**
