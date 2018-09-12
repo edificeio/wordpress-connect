@@ -215,7 +215,7 @@ class OpenID_Connect_Generic_Client {
 		$request['headers']['Host'] = $host;
 
 		// attempt the request including the access token in the query string for backwards compatibility
-		$response = wp_remote_post( $this->endpoint_userinfo, $request );
+		$response = wp_remote_get( $this->endpoint_userinfo, $request );
 
 		if ( is_wp_error( $response ) ){
 			$response->add( 'request_userinfo' , __( 'Request for userinfo failed.' ) );
@@ -376,7 +376,7 @@ class OpenID_Connect_Generic_Client {
 		}
 		
 		// make sure the id_token sub === user_claim sub, according to spec
-		if ( $id_token_claim['sub' ] !== $user_claim['sub'] ) {
+		if ( $id_token_claim['sub' ] !== $user_claim['externalId'] ) {
 			return new WP_Error( 'incorrect-user-claim', __( 'Incorrect user claim' ), func_get_args() );
 		}
 

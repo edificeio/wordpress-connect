@@ -337,18 +337,12 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		 */
 		$subject_identity = $client->get_subject_identity( $id_token_claim );
 		$user = $this->get_user_by_identity( $subject_identity );
-
+		//set email from id_token
+		if(!isset($user_claim["email"]))			
+			$user_claim["email"] = $id_token_claim["email"];
 		// if we didn't find an existing user, we'll need to create it
 		if ( ! $user ) {
-			$user = $this->create_new_user( $subject_identity, $user_claim );
-			if ( is_wp_error( $user ) ) {
-				$this->error_redirect( $user );
-				return;
-			}
-		}
-		else {
-			// allow plugins / themes to take action using current claims on existing user (e.g. update role)
-			do_action( 'openid-connect-generic-update-user-using-current-claim', $user, $user_claim );
+			$this->error_redirect( new WP_Error( 'non-existing-user', __( 'User does not exists' ), $user_claim_result ));
 		}
 
 		// validate the found / created user
