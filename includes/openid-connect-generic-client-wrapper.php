@@ -84,8 +84,8 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	 * @return mixed
 	 */
 	function alternate_redirect_uri_parse_request( $query ){
-		if ( isset( $query->query_vars['openid-connect-authorize'] ) &&
-		     $query->query_vars['openid-connect-authorize'] === '1' )
+		if ($query->query_vars['category_name'] || (isset( $query->query_vars['openid-connect-authorize'] ) &&
+		     $query->query_vars['openid-connect-authorize'] === '1' ))
 		{
 			$this->authentication_request_callback();
 			exit;
