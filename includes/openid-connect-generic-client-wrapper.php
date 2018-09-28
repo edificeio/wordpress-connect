@@ -367,7 +367,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		}
 		// otherwise, go home!
 		else {
-			wp_redirect( home_url() );
+			wp_redirect( admin_url() );
 		}
 		
 		exit;
