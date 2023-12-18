@@ -213,6 +213,7 @@ class OpenID_Connect_Generic_Client {
 		}
 
 		$request['headers']['Host'] = $host;
+		$request['timeout'] = 30;
 
 		// attempt the request including the access token in the query string for backwards compatibility
 		$response = wp_remote_get( $this->endpoint_userinfo, $request );
